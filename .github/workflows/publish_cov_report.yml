@@ -1,0 +1,63 @@
+name: Publish Coverage Report
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore MyMath.sln
+      working-directory: MyMath
+
+    - name: Build the project
+      run: dotnet build MyMath.sln --configuration Release
+      working-directory: MyMath
+
+    - name: Run tests and collect code coverage
+      run: dotnet test MyMath.sln --configuration Release --collect:"XPlat Code Coverage"
+      working-directory: MyMath
+
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+    - name: Add .NET tools to PATH
+      run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+    - name: Generate coverage report
+      run: |
+        reportgenerator "-reports:**/coverage.cobertura.xml" "-targetdir:coverage-report" -reporttypes:HTML
+      working-directory: MyMath
+
+    - name: Pull latest gh-pages branch (optional)
+      run: git pull origin gh-pages || echo "No gh-pages branch to pull"
+
+    - name: Publish coverage report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: MyMath/coverage-report
+        user_name: 'github-actions'
+        user_email: 'github-actions@github.com'
+        publish_branch: gh-pages
+        allow_empty_commit: false
+        keep_files: false
+        force_orphan: false
+        enable_jekyll: false
+        disable_nojekyll: false
+        exclude_assets: .github
