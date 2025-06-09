@@ -3,7 +3,7 @@ name: MyMath - Release NuGet Package and Create GitHub Release
 env:
   DOTNET_VERSION: '8.0.x'
   # Asegúrate que este PROJECT_NAME coincida con el <PackageId> en tu .csproj
-  PROJECT_NAME: MyMath.Lib _WS
+  PROJECT_NAME: MyMath.Lib_WS
   PROJECT_PATH: MyMath/Math.Lib/Math.Lib.csproj
   TEST_PROJECT_PATH: MyMath/Math.Tests/Math.Tests.csproj
   PACKAGE_OUTPUT_DIRECTORY: out
