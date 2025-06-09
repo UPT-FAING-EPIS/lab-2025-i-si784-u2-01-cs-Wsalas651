@@ -1,9 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Version>1.0.0</Version>
+    <PackageId>MyMath.Lib_WS</PackageId>
+
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <!-- Metadatos adicionales recomendados para tu paquete NuGet -->
+    <Authors>Wsalas651</Authors>
+    <Company>UPT-FAING-EPIS</Company>
+    <Description>Librería ejemplo que brinda funcionalidades matemáticas básicas.</Description>
+    
+    <!-- IMPORTANTE: Actualiza esta URL con la URL de tu repositorio en GitHub -->
+    <RepositoryUrl>https://github.com/UPT-FAING-EPIS/lab-2025-i-si784-u2-01-cs-Wsalas651</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    
+    <!-- Elige una licencia. MIT es común para proyectos open source. -->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    
+    <!-- Opcional: Si quieres que el paquete generado vaya a un subdirectorio específico al hacer 'dotnet pack' localmente -->
+    <!-- <PackageOutputPath>./nupkg</PackageOutputPath> -->
+
   </PropertyGroup>
 
 </Project>
