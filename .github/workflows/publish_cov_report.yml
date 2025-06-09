@@ -35,8 +35,11 @@ jobs:
 
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      # Ensure the tool is available in the PATH for subsequent steps
+      # Note: This is often done automatically, but explicitly adding to PATH is safer.
 
     - name: Add .NET tools to PATH
+      # This step makes the 'reportgenerator' command available directly.
       run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
     - name: Generate coverage report
@@ -53,8 +56,8 @@ jobs:
         user_email: 'github-actions@github.com'
         publish_branch: gh-pages
         allow_empty_commit: false
+        force_orphan: true # <--- Keeps your GitHub Pages up-to-date by overwriting.
         keep_files: false
-        force_orphan: false
-        enable_jekyll: false
-        disable_nojekyll: false
+        enable_jekyll: false # <--- Prevents Jekyll processing (good for raw HTML reports).
+        disable_nojekyll: false # <--- Ensures a .nojekyll file is created for raw serving.
         exclude_assets: .github
